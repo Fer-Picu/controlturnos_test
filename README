@@ -1,7 +1,9 @@
 Control de Turnos
+=================
 Proyecto OS equipo Kinder Develop (FP,JC,NZ,SG)
 
 About
+-----
 Sistema de gestión automatizado para el control de turnos y atención en tiempo real.
 El objetivo es simplificar el proceso tanto para usuarios como para los puestos de atención
 Altamente flexible y configurable. Generador de reportes y estadísticas.
@@ -9,13 +11,31 @@ Tickets configurables y acorde a necesidades del cliente
 Seccione y áreas de atención ilimitados
 Opciones para identificación del usuario
 Dispone de un administrador de pautas para establecer los planes de marketing y publicidad
-y más...
+y más
+
+Más Características
+-------------------
+Se debe poder mostrar en un monitor información referida a los turnos activos indicando el sector. Esto permite que el cliente pueda saber en que momento es atendido.
+El flujo de personas en múltiples salas debe ser gestionado por una sola aplicación y/o servidor
+
+Algunos reportes necesarios
+
++Tiempo Medio de Atención en el Sector.
++Tiempo Medio de Espera en el Sector.
++Número Medio de Clientes en el Sector.
++Probabilidad de Sector Desocupado.
++Tiempo Medio de Espera en el Sistema.
++Número Medio de Clientes en el Sistema.
+
 
 Downloads
+---------
 comming soon...
 
 Source
+------
 proyecto privado en GitLab. Fork us!
 
 News and Website
+----------------
 comming soon...
