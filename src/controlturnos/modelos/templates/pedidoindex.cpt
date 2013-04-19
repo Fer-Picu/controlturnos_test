@@ -1,8 +1,13 @@
 <html>
-<head>
-</head>
 <body>
-  <h1>Congratulations!</h1>
-  <p>Pedido Index</p>
+<h1>BIENVENIDO</h1>
+<p tal:content="view.context.now"></p>
+<!--<ul>
+tal:content="now">now</li>
+</ul>-->
+<ul>
+ <li tal:repeat="item view.context.lista">
+ <p tal:content="item"></p></li>
+</ul>
 </body>
 </html>
