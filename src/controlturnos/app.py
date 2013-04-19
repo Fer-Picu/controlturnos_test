@@ -15,7 +15,9 @@ from usuario import ContenedorUsuarios
 
 
 class Controlturnos(grok.Application, grok.Container):
+
     def __init__(self):
+        super(Controlturnos, self).__init__()
         self["pedido"] = Pedido()
         self["admin"] = Admin()
         self["empleado"] = Empleado()
@@ -23,9 +25,9 @@ class Controlturnos(grok.Application, grok.Container):
         self["tickets"] = ContenedorTickets()
         self["secciones"] = ContenedorSecciones()
         self["usuarios"] = ContenedorUsuarios()
-        
 
 
 class Index(grok.View):
+
     def update(self):
         resource.style.need()

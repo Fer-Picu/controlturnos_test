@@ -1,6 +1,12 @@
 import grok
 
-grok.templatedir("app_templates")
+grok.templatedir("templates")
+
 
 class Empleado(grok.Model):
+    pass
+
+
+class EmpleadoIndex(grok.View):
+    grok.name("index")
     pass

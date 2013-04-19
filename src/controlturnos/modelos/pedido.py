@@ -1,6 +1,12 @@
 import grok
 
-grok.templatedir("app_templates")
+grok.templatedir("templates")
+
 
 class Pedido(grok.Model):
+    pass
+
+
+class PedidoIndex(grok.View):
+    grok.name("index")
     pass
