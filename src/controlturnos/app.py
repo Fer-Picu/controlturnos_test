@@ -7,11 +7,9 @@ from modelos.pedido import Pedido
 from modelos.admin import Admin
 from modelos.empleado import Empleado
 from modelos.lista import Lista
-
-# imports de clases
-from ticket import ContenedorTickets
-from seccion import ContenedorSecciones
-from usuario import ContenedorUsuarios
+from modelos.ticket import ContenedorTickets
+from modelos.seccion import ContenedorSecciones
+from modelos.usuario import ContenedorUsuarios
 
 
 class Controlturnos(grok.Application, grok.Container):
