@@ -57,15 +57,15 @@ class ContenedorSecciones(grok.Container):
     def __init__(self):
         super(ContenedorSecciones, self).__init__()
 
-    def obtenerListaSecciones(self):
+    def obtener_lista_secciones(self):
         """Devuelve lista de objetos Seccion creados"""
         return [value for key, value in self.items()]
 
-    def agregarSeccion(self, seccion):
+    def agregar_seccion(self, seccion):
         """Agrega una seccion"""
         self[seccion.codigo] = seccion
 
-    def obtenerSeccionPorNombre(self, nombre):
+    def obtener_seccion_por_nombre(self, nombre):
         """
         Devuelve seccion con el nombre pasado si tal existe
         en otro caso devuelve None
@@ -74,13 +74,13 @@ class ContenedorSecciones(grok.Container):
             return self[nombre]
         return None
 
-    def contieneNombre(self, nombre):
+    def contiene_nombre(self, nombre):
         """Devuelve true si tiene self[nombre]"""
         if nombre in self.keys():
             return True
         return False
 
-    def borrarSeccion(self, seccion):
+    def borrar_seccion(self, seccion):
         self.__delitem__(seccion)
 
 
