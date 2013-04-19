@@ -1,0 +1,2 @@
+class ContenedorSecciones():
+    pass
