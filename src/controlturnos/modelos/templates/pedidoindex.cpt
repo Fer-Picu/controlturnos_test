@@ -3,9 +3,14 @@
 <h1>BIENVENIDO</h1>
 <p>holitas</p>
 <ul>
- <li tal:repeat="item view.context.lista">
- <p tal:content="item.nombre"></p>
- <p tal:content="item.descripcion"></p>
+ <li tal:repeat="seccion view.context.lista">
+ <p tal:content="seccion.nombre"></p>
+ <p tal:content="seccion.descripcion"></p>
+ <form tal:attributes="action view.url()" method="POST">
+	  	  <input type="hidden" name="seccion_codigo" tal:attributes="value seccion.codigo"></input>
+	  	  <input type="hidden" name="seccion_nombre" tal:attributes="value seccion.nombre"></input>
+	      <input type="submit" value="PEDIR TURNO" />
+	  	</form>
  </li>
 </ul>
 </body>

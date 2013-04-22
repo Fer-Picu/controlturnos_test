@@ -2,6 +2,7 @@ import grok
 from datetime import datetime
 from zope import schema
 from zope.interface import Interface
+from ticket import ContenedorTickets
 grok.templatedir("templates")
 
 
@@ -28,7 +29,6 @@ class Pedido(grok.Model):
         super(Pedido, self).__init__()
         self.now = datetime.now().strftime('%Y-%m-%d %H:%M')
         self.lista = []
-        self.traer_nombres_de_secciones()
 
 
 class PedidoForm(grok.Form):
@@ -38,9 +38,25 @@ class PedidoForm(grok.Form):
     pass
 
 
+class RetireTicket(grok.Model):
+    def __init__(self):
+        super(RetireTicket, self).__init__()
+
+
+class RetireTicketIndex(grok.View):
+    grok.name("retireticketindex")
+
 class PedidoIndex(grok.View):
     grok.name("index")
 
-    def update(self):
+    def update(self, seccion_codigo=None, seccion_nombre=None):
 #         self.context.now = datetime.now().strftime('%Y-%m-%d %H:%M')
         self.context.traer_nombres_de_secciones()
+        if seccion_codigo == None:
+            pass
+        else:
+            ContenedorTickets.agregar_ticket(seccion_nombre)
+            self.redirect(self.context.RetireTicket, None, False )
+            # AGREGAR un ticket a la lista de tickets y mostrar mensaje en pantalla
+            pass
+    
