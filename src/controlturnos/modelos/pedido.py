@@ -2,33 +2,39 @@ import grok
 from datetime import datetime
 from zope import schema
 from zope.interface import Interface
-
 grok.templatedir("templates")
 
 
 class Ipedido(Interface):
     nombre = schema.TextLine(
-                    title=u"Nombre",
-                    description=u"Nombre de la seccion",
+                    title=u"SOLICITAR TURNO",
                     required=True)
-    pass
 
 
 class Pedido(grok.Model):
     grok.implements(Ipedido)
     title = u''
-    description = u''
+
+    def traer_nombres_de_secciones(self):
+        self.lista = []
+        lista_aux = self.__parent__['secciones'].obtener_lista_secciones()
+        if not lista_aux:
+            return
+        for cada_seccion in lista_aux:
+            self.lista.append(cada_seccion)
+        self._p_changed = True
 
     def __init__(self):
         super(Pedido, self).__init__()
         self.now = datetime.now().strftime('%Y-%m-%d %H:%M')
-        self.lista = range(4)
+        self.lista = []
+        self.traer_nombres_de_secciones()
 
 
 class PedidoForm(grok.Form):
     grok.context(Pedido)
-    grok.name('index')
-    form_field = grok.AutoFields(Pedido)
+    grok.name('pedido_test_field')
+    form_field = grok.AutoFields(Ipedido)
     pass
 
 
@@ -36,4 +42,5 @@ class PedidoIndex(grok.View):
     grok.name("index")
 
     def update(self):
-        self.context.now = datetime.now().strftime('%Y-%m-%d %H:%M')
+#         self.context.now = datetime.now().strftime('%Y-%m-%d %H:%M')
+        self.context.traer_nombres_de_secciones()

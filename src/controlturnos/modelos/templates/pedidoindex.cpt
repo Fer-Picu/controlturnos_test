@@ -1,10 +1,12 @@
 <html>
 <body>
 <h1>BIENVENIDO</h1>
-<p tal:content="view.context.now"></p>
+<p>holitas</p>
 <ul>
  <li tal:repeat="item view.context.lista">
- <p tal:content="item"></p></li>
+ <p tal:content="item.nombre"></p>
+ <p tal:content="item.descripcion"></p>
+ </li>
 </ul>
 </body>
 </html>

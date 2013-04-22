@@ -92,7 +92,7 @@ class ContenedorSeccionesIndex(grok.View):
     def update(self, seccion=None):
         if not seccion:
             return
-        self.context.borrarSeccion(seccion)
+        self.context.borrar_seccion(seccion)
 
 
 class AddSeccion(grok.AddForm):
@@ -108,7 +108,7 @@ class AddSeccion(grok.AddForm):
             return
         if not data['codigo'].isalnum():
             return
-        self.context.agregarSeccion(Seccion(data['nombre'],
+        self.context.agregar_seccion(Seccion(data['nombre'],
                                             data['descripcion'],
                                             data['codigo']))
         self.redirect(self.url('index'))
