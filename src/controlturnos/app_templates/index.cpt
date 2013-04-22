@@ -7,5 +7,8 @@
   Edit <code>controlturnos/app_templates/index.pt</code> to change
   this page.</p>
   <img tal:attributes="src static['evencaveman.jpg']"/>
+  <p><a tal:attributes="href view.url(view.context['admin'])">Ir a la vista de administrador</a></p>
+  <p><a tal:attributes="href view.url(view.context['empleado'])">Ir a la vista del empleado</a></p>
+  <p><a tal:attributes="href view.url(view.context['lista'])">Ir a la lista de tickets</a></p>
 </body>
 </html>

@@ -42,6 +42,7 @@ class Seccion(grok.Model):
 
 class SeccionEdit(grok.EditForm):
     grok.context(Seccion)
+    grok.require('ct.admin')
     grok.name('index')
     form_fields = grok.AutoFields(ISeccion)
     label = 'Editar campos'
@@ -65,9 +66,9 @@ class ContenedorSecciones(grok.Container):
         """Agrega una seccion"""
         self[seccion.codigo] = seccion
 
-    def obtener_seccion_por_nombre(self, nombre):
+    def obtener_seccion_por_codigo(self, nombre):
         """
-        Devuelve seccion con el nombre pasado si tal existe
+        Devuelve seccion con el codigo pasado si tal existe
         en otro caso devuelve None
         """
         if nombre in self.keys():
@@ -86,18 +87,20 @@ class ContenedorSecciones(grok.Container):
 
 class ContenedorSeccionesIndex(grok.View):
     grok.context(ContenedorSecciones)
+    grok.require('ct.admin')
     grok.template('seccionesindex')
     grok.name('index')
 
     def update(self, seccion=None):
         if not seccion:
             return
-        self.context.borrarSeccion(seccion)
+        self.context.borrar_seccion(seccion)
 
 
 class AddSeccion(grok.AddForm):
     grok.context(ContenedorSecciones)
     grok.name('agregar')
+    grok.require('ct.admin')
     form_fields = grok.Fields(ISeccion)
     label = "Agregue seccion nueva"
 
@@ -108,7 +111,7 @@ class AddSeccion(grok.AddForm):
             return
         if not data['codigo'].isalnum():
             return
-        self.context.agregarSeccion(Seccion(data['nombre'],
-                                            data['descripcion'],
-                                            data['codigo']))
+        self.context.agregar_seccion(Seccion(data['nombre'],
+                                             data['descripcion'],
+                                             data['codigo']))
         self.redirect(self.url('index'))

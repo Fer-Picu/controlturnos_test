@@ -9,4 +9,4 @@ class Empleado(grok.Model):
 
 class EmpleadoIndex(grok.View):
     grok.name("index")
-    pass
+    grok.require('ct.empleado')

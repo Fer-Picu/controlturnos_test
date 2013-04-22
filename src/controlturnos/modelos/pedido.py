@@ -9,4 +9,3 @@ class Pedido(grok.Model):
 
 class PedidoIndex(grok.View):
     grok.name("index")
-    pass
