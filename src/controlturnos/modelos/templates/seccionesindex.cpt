@@ -1,0 +1,20 @@
+<html>
+<head>
+</head>
+<body>
+  <h1>Lista de secciones</h1>
+  <ul>
+ 	 <li tal:repeat="seccion view.context.values()">
+	  	<h3 tal:content="seccion.nombre + ' - ' + seccion.codigo"></h3>
+	  	<p tal:content="seccion.descripcion">
+	  	<a tal:attributes="href view.url(seccion)">Editar la seccion</a>
+	  	<form tal:attributes="action view.url()" method="POST">
+	  	  <input type="hidden" name="seccion" tal:attributes="value seccion.codigo"></input>
+	      <input type="submit" value="Eliminar" />
+	  	</form>
+	  </li>
+	  <br />
+  </ul>
+  <a tal:attributes="href view.url('agregar')">Agregar seccion nueva</a>
+</body>
+</html>

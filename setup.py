@@ -23,12 +23,11 @@ setup(name='controlturnos',
                         'grokui.admin',
                         'fanstatic',
                         'zope.fanstatic',
-                        'grokcore.chameleon',
                         'grokcore.startup',
                         # Add extra requirements here
                         ],
       entry_points={
           'fanstatic.libraries': [
-              'controlturnos = controlturnos.resource:library',
+              'grok1 = grok1.resource:library',
           ]
       })
