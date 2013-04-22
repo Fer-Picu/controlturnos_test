@@ -2,12 +2,9 @@
 <body>
 <h1>BIENVENIDO</h1>
 <p tal:content="view.context.now"></p>
-<!--<ul>
-tal:content="now">now</li>
-</ul>-->
 <ul>
  <li tal:repeat="item view.context.lista">
  <p tal:content="item"></p></li>
 </ul>
 </body>
-</html>lkdmvkjsd  kvsdfv e b
+</html>
