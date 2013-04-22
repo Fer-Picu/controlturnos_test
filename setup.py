@@ -24,10 +24,11 @@ setup(name='controlturnos',
                         'fanstatic',
                         'zope.fanstatic',
                         'grokcore.startup',
+                        'zope.pluggableauth',
                         # Add extra requirements here
                         ],
       entry_points={
           'fanstatic.libraries': [
-              'grok1 = grok1.resource:library',
+              'controlturnos = controlturnos.resource:library',
           ]
       })
