@@ -37,10 +37,6 @@ class PedidoForm(grok.Form):
     pass
 
 
-class RetireTicketIndex(grok.View):
-    grok.context(Pedido)
-    grok.template('retireticketindex')
-    grok.name("retireticket")
 
 
 class PedidoIndex(grok.View):

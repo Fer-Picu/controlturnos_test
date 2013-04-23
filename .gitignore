@@ -32,7 +32,7 @@ nosetests.xml
 
 # Translations
 *.mo
-
+.metadata
 # Mr Developer
 .mr.developer.cfg
 .project
