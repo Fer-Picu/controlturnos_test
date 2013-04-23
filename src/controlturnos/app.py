@@ -3,8 +3,6 @@ import grok
 from controlturnos import resource
 
 # imports de modelos
-from auth import setup_authentication
-from auth import UserAuthenticatorPlugin
 
 from modelos.admin import Admin
 from modelos.pedido import Pedido
@@ -12,11 +10,13 @@ from modelos.empleado import Empleado
 from modelos.lista import Lista
 from modelos.ticket import ContenedorTickets
 from modelos.seccion import ContenedorSecciones
-from controlturnos.modelos.usuarios import ContenedorUsuarios
 
+from controlturnos.modelos.usuarios import ContenedorUsuarios
 from zope.pluggableauth import PluggableAuthentication
 from zope.pluggableauth.interfaces import IAuthenticatorPlugin
 from zope.authentication.interfaces import IAuthentication
+from auth import setup_authentication
+from auth import UserAuthenticatorPlugin
 
 
 class Controlturnos(grok.Application, grok.Container):
@@ -29,13 +29,13 @@ class Controlturnos(grok.Application, grok.Container):
 
     def __init__(self):
         super(Controlturnos, self).__init__()
-        self["pedido"] = Pedido()
         self["admin"] = Admin()
         self["empleado"] = Empleado()
         self["lista"] = Lista()
         self["tickets"] = ContenedorTickets()
         self["secciones"] = ContenedorSecciones()
         self["usuarios"] = ContenedorUsuarios()
+        self["pedido"] = Pedido()
 
 
 class Index(grok.View):

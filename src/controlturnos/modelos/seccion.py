@@ -38,6 +38,7 @@ class Seccion(grok.Model):
         self.nombre = nombre
         self.descripcion = descripcion
         self.codigo = codigo
+        self.turno = 0
 
 
 class SeccionEdit(grok.EditForm):
@@ -114,4 +115,5 @@ class AddSeccion(grok.AddForm):
         self.context.agregar_seccion(Seccion(data['nombre'],
                                              data['descripcion'],
                                              data['codigo']))
+
         self.redirect(self.url('index'))

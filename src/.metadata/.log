@@ -1,0 +1,99 @@
+!SESSION 2013-04-17 08:33:55.506 -----------------------------------------------
+eclipse.buildId=I20120502-2000
+java.version=1.7.0_15
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_AR
+Command-line arguments:  -data /home/fernando/workspace/controlturnos/src -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:05.779
+!MESSAGE System property http.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:05.782
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:05.788
+!MESSAGE System property https.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:05.788
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:05.801
+!MESSAGE System property https.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:05.802
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 08:34:24.216
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.jst.jsp.ui, propertyPage: org.eclipse.jst.jsp.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 08:34:24.216
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.html.ui, propertyPage: org.eclipse.wst.html.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 08:34:24.216
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
+!SESSION 2013-04-17 08:34:25.292 -----------------------------------------------
+eclipse.buildId=I20120502-2000
+java.version=1.7.0_15
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_AR
+Command-line arguments:  -data /home/fernando/workspace/controlturnos/src -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:33.924
+!MESSAGE System property http.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:33.927
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:33.939
+!MESSAGE System property https.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:33.939
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:33.948
+!MESSAGE System property https.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 08:34:33.948
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 08:36:48.746
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.jst.jsp.ui, propertyPage: org.eclipse.jst.jsp.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 08:36:48.747
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.html.ui, propertyPage: org.eclipse.wst.html.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 08:36:48.747
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
+!SESSION 2013-04-17 14:00:50.343 -----------------------------------------------
+eclipse.buildId=I20120502-2000
+java.version=1.7.0_15
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_AR
+Command-line arguments:  -data /home/fernando/workspace/controlturnos/src -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 14:00:59.074
+!MESSAGE System property http.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 14:00:59.104
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 14:00:59.108
+!MESSAGE System property https.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 14:00:59.108
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 14:00:59.123
+!MESSAGE System property https.proxyHost is not set but should be proxylx.
+
+!ENTRY org.eclipse.core.net 1 0 2013-04-17 14:00:59.123
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 14:01:05.984
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.jst.jsp.ui, propertyPage: org.eclipse.jst.jsp.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 14:01:05.984
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.html.ui, propertyPage: org.eclipse.wst.html.ui.propertyPage.project.validation)
+
+!ENTRY org.eclipse.ui 2 2 2013-04-17 14:01:05.985
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)

@@ -1,0 +1,16 @@
+<html>
+<head>
+</head>
+<body>
+  <h1>Lista de TICKETS</h1>
+  <ul>
+ 	 <li tal:repeat="ticket view.context.values()">
+	  	<h3 tal:content="ticket.hora_emision + ' - ' + ticket.codigo()"></h3>
+	  	<p tal:content="ticket.seccion">
+	  	<a tal:attributes="href view.url(ticket.codigo())">Ver el ticket</a>
+	  </li>
+	  <br />
+  </ul>
+  <a tal:attributes="href view.application_url() + '/pedido'">Pedir ticket</a>
+</body>
+</html>
