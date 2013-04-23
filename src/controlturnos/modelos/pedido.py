@@ -38,13 +38,11 @@ class PedidoForm(grok.Form):
     pass
 
 
-class RetireTicket(grok.Model):
-    def __init__(self):
-        super(RetireTicket, self).__init__()
-
-
 class RetireTicketIndex(grok.View):
-    grok.name("retireticketindex")
+    grok.context(Pedido)
+    grok.template('retireticketindex')
+    grok.name("retireticket")
+
 
 class PedidoIndex(grok.View):
     grok.name("index")
@@ -55,8 +53,8 @@ class PedidoIndex(grok.View):
         if seccion_codigo == None:
             pass
         else:
-            ContenedorTickets.agregar_ticket(seccion_nombre)
-            self.redirect(self.context.RetireTicket, None, False )
+            nuevo_ticket = self.context.__parent__["tickets"].agregar_ticket(seccion_nombre, seccion_codigo)
+            self.redirect(self.url(self.context.__parent__["tickets"][nuevo_ticket], 'index'))
             # AGREGAR un ticket a la lista de tickets y mostrar mensaje en pantalla
             pass
     

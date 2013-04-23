@@ -38,6 +38,7 @@ class Seccion(grok.Model):
         self.nombre = nombre
         self.descripcion = descripcion
         self.codigo = codigo
+        self.turno = 0
 
 
 class SeccionEdit(grok.EditForm):
