@@ -109,9 +109,9 @@ class UserAuthenticatorPlugin(grok.LocalUtility):
                              title=cuenta.nombre_real,
                              description=cuenta.description)
 
-    def getAccount(self, login):
+    def getAccount(self, usuario):
         """Devuelve la cuenta del """
-        return login in self.user_folder and self.user_folder[login] or None
+        return usuario in self.user_folder and self.user_folder[usuario] or None
 
     def addUser(self, nombre, password, confirm_password, nombre_real, rol):
         error = self.checkFields(nombre, password, confirm_password)
