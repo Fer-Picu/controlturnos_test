@@ -12,7 +12,7 @@ from modelos.empleado import Empleado
 from modelos.lista import Lista
 from modelos.ticket import ContenedorTickets
 from modelos.seccion import ContenedorSecciones
-from modelos.usuarios import ContenedorUsuarios
+from controlturnos.modelos.usuarios import ContenedorUsuarios
 
 from zope.pluggableauth import PluggableAuthentication
 from zope.pluggableauth.interfaces import IAuthenticatorPlugin

@@ -44,11 +44,17 @@ class AddUser(grok.Form):
     grok.name('agregar')
     label = "Add user"
     form_fields = grok.Fields(IAddUserForm)
+    error_color = "red"
 
     @grok.action('add')
     def handle_add(self, **data):
         usuarios = component.getUtility(IAuthenticatorPlugin,
                                         'usuarios_plugin')
-        usuarios.addUser(data['usuario'], data['password'],
-                      data['nombre_real'], data['rol'])
+        error = usuarios.addUser(data['usuario'], data['password'],
+                            data['confirmar_password'],
+                            data['nombre_real'], data['rol'])
+        if error:
+            self.label = "error: " + error
+            self.redirect(self.url(self.context), 'agregar')
+            return
         self.redirect(self.url(self.context))

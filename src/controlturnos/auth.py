@@ -13,7 +13,6 @@ from zope.pluggableauth.interfaces import ICredentialsPlugin
 from zope.pluggableauth.interfaces import IAuthenticatorPlugin
 from zope.pluggableauth.interfaces import IPrincipalInfo
 
-from zope.password.interfaces import IPasswordManager
 from zope.interface import Interface
 
 from zope.authentication.interfaces import ILogout
@@ -23,6 +22,8 @@ from zope.securitypolicy.interfaces import IPrincipalRoleManager
 
 from zope import component
 from zope import schema
+
+from zope.password.interfaces import IPasswordManager
 
 grok.templatedir('app_templates')
 
@@ -61,7 +62,11 @@ class Login(grok.Form):
 
     @grok.action('login')
     def handle_login(self, **data):
-        self.redirect(self.request.form.get('camefrom'))
+        camefrom = self.request.form.get('camefrom')
+        if camefrom:
+            self.redirect(camefrom)
+            return
+        self.redirect(self.application_url())
 
 
 class Logout(grok.View):
@@ -108,7 +113,10 @@ class UserAuthenticatorPlugin(grok.LocalUtility):
         """Devuelve la cuenta del """
         return login in self.user_folder and self.user_folder[login] or None
 
-    def addUser(self, nombre, password, nombre_real, rol):
+    def addUser(self, nombre, password, confirm_password, nombre_real, rol):
+        error = self.checkFields(nombre, password, confirm_password)
+        if error:
+            return error
         if nombre not in self.user_folder:
             user = Cuenta(nombre, password, nombre_real, rol)
             self.user_folder[nombre] = user
@@ -119,6 +127,18 @@ class UserAuthenticatorPlugin(grok.LocalUtility):
             if rol == u'administrador':
                 role_manager.assignRoleToPrincipal('ct.adminrol',
                                                    nombre)
+
+    def checkFields(self, nombre, password, confirm_password):
+        if not nombre.isalnum():
+            return "usuario solamente puede contener numeros y letras"
+        elif not password.isalnum():
+            return "password solamente puede contener numeros y letras"
+        elif not password == confirm_password:
+            return "las passwords no coinciden"
+        elif len(nombre) > 20:
+            return "usuario muy largo"
+        else:
+            return None
 
     def listUsers(self):
         return [user for user in self.user_folder.values()]
