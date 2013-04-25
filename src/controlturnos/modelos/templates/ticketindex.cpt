@@ -9,8 +9,8 @@
 	</p>
 	
 	<p> Seccion: </p>
-	<p tal:content="view.context.seccion" > 
-		seccion 
+	<p tal:content="view.context.seccion.nombre" > 
+		seccion.nombre 
 	</p>
 	
 	<p> Hora de emision: </p>

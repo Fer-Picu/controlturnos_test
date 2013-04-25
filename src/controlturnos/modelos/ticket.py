@@ -17,7 +17,7 @@ class ContenedorTickets(grok.Container):
 
     def agregar_ticket(self, seccion):
         self.incrementar_contador(seccion.codigo)
-        ticket = Ticket(seccion, self[seccion.codigo])
+        ticket = Ticket(seccion, self.contadores[seccion.codigo])
         self[ticket.codigo()] = ticket
         return ticket.codigo()
 

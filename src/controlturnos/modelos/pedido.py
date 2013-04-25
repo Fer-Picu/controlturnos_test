@@ -29,7 +29,6 @@ class Pedido(grok.Model):
                                                 seccion)
         return nuevo_ticket
 
-
     def traer_una_seccion(self, seccion_codigo):
         seccion = self.__parent__['secciones'].obtener_seccion_por_codigo\
                                                     (seccion_codigo)
