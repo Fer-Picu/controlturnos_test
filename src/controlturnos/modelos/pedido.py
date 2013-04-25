@@ -37,8 +37,6 @@ class PedidoForm(grok.Form):
     pass
 
 
-
-
 class PedidoIndex(grok.View):
     grok.name("index")
 
