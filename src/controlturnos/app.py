@@ -22,7 +22,7 @@ class Controlturnos(grok.Application, grok.Container):
 
     def __init__(self):
         super(Controlturnos, self).__init__()
-        self['usuarios'] = Usuarios
+        self['usuarios'] = Usuarios()
 
 
 class Index(grok.View):

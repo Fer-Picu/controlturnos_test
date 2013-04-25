@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>Lista de usuarios</title>
+</head>
+<body>
+	<h1>Lista de usuarios</h1>
+	<p><a href="agregar">Agregar nuevo usuario</a></p>
+	<div tal:condition="view.usuarios">
+		<h2 >Estos son los usuarios existentes</h2>
+		<table>
+			<tr>
+				<th>Login</th>
+				<th>Nombre real</th>
+				<th>Role</th>
+			</tr>
+			<tr tal:repeat="user view.usuarios">
+				<td tal:content="user.nombre"></td>
+				<td tal:content="user.nombre_real"></td>
+				<td tal:content="user.rol"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

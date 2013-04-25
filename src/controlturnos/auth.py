@@ -1,3 +1,4 @@
+# -*- coding: latin-1 -*-
 '''
 Created on 25/04/2013
 
@@ -22,7 +23,7 @@ from zope.securitypolicy.interfaces import IPrincipalRoleManager
 from zope import component
 from zope import schema
 
-from zope.password.interfaces import IPasswordManager
+from controlturnos.usuarios import Cuenta
 
 grok.templatedir('app_templates')
 
@@ -44,7 +45,7 @@ class PluginCredenciales(grok.GlobalUtility, SessionCredentialsPlugin):
 class ILoginFormulario(Interface):
     login = schema.BytesLine(title=u'Usuario', required=True)
     camefrom = schema.BytesLine(title=u'', required=False)
-    password = schema.Password(title=u'ContraseÃ±a', required=True)
+    password = schema.Password(title=u'Contraseña', required=True)
 
 
 class Login(grok.Form):
@@ -90,44 +91,45 @@ class PluginAuthenticacion(grok.LocalUtility):
             return None
         if not ('login' in credenciales and 'password' in credenciales):
             return None
-        cuenta = self.getAccount(credenciales['login'])
+        cuenta = self.obtener_cuenta(credenciales['login'])
         if cuenta is None:
             return None
-        if not cuenta.checkPassword(credenciales['password']):
+        if not cuenta.verificar_password(credenciales['password']):
             return None
         return PrincipalInfo(id=cuenta.nombre,
                              title=cuenta.nombre_real,
                              description=cuenta.nombre_real)
 
     def principalInfo(self, id):
-        cuenta = self.getAccount(id)
+        cuenta = self.obtener_cuenta(id)
         if cuenta is None:
             return None
         return PrincipalInfo(id=cuenta.nombre,
                              title=cuenta.nombre_real,
                              description=cuenta.description)
 
-    def getAccount(self, usuario):
-        """Devuelve la cuenta del """
+    def obtener_cuenta(self, usuario):
+        """Devuelve la cuenta del contenedor_cuentas[usuario]"""
         return usuario in self.contenedor_cuentas\
                         and self.contenedor_cuentas[usuario] or None
 
-    def addUser(self, nombre, password, confirm_password, nombre_real, rol):
-        error = self.checkFields(nombre, password, confirm_password)
+    def agregar_usuario(self, usuario, password,
+                        confirm_password, nombre_real, rol, seccion):
+        error = self.verificar_campos(usuario, password, confirm_password)
         if error:
             return error
-        if nombre not in self.contenedor_cuentas:
-            user = Cuenta(nombre, password, nombre_real, rol)
-            self.contenedor_cuentas[nombre] = user
+        if usuario not in self.contenedor_cuentas:
+            user = Cuenta(usuario, password, nombre_real, rol, seccion)
+            self.contenedor_cuentas[usuario] = user
             role_manager = IPrincipalRoleManager(grok.getSite())
             if rol == u'empleado':
                 role_manager.assignRoleToPrincipal('ct.empleadorol',
-                                                   nombre)
+                                                   usuario)
             if rol == u'administrador':
                 role_manager.assignRoleToPrincipal('ct.adminrol',
-                                                   nombre)
+                                                   usuario)
 
-    def checkFields(self, nombre, password, confirm_password):
+    def verificar_campos(self, nombre, password, confirm_password):
         if not nombre.isalnum():
             return "usuario solamente puede contener numeros y letras"
         elif not password.isalnum():
@@ -139,11 +141,12 @@ class PluginAuthenticacion(grok.LocalUtility):
         else:
             return None
 
-    def listUsers(self):
-        return [user for user in self.contenedor_cuentas.values()]
+    def listar_usuarios(self):
+        """Devuelve lista de cuentas creadas"""
+        return [usuario for usuario in self.contenedor_cuentas.values()]
 
 
-class UserFolder(grok.Container):
+class ContenedorCuentas(grok.Container):
     pass
 
 
@@ -156,23 +159,3 @@ class PrincipalInfo(object):
         self.description = description
         self.credentialsPlugin = None
         self.authenticatorPlugin = None
-
-
-class Cuenta(grok.Model):
-
-    def __init__(self, nombre, password, nombre_real, rol):
-        self.nombre = nombre
-        self.nombre_real = nombre_real
-        self.rol = rol
-        self.setPassword(password)
-
-    def setPassword(self, password):
-        passwordmanager = component.getUtility(IPasswordManager,
-                                               'SHA1')
-        self.password = passwordmanager.encodePassword(password)
-
-    def checkPassword(self, password):
-        passwordmanager = component.getUtility(IPasswordManager,
-                                               'SHA1')
-        return passwordmanager.checkPassword(self.password,
-                                             password)
