@@ -1,0 +1,9 @@
+<html>
+<head>
+	<title>Deslogueado</title>
+</head>
+<body>
+  <p>Usted ha salido del sistema</p>
+  <p><a href="login">Volver a entrar</a></p>
+</body>
+</html>
