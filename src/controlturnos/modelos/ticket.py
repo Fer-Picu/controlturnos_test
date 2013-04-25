@@ -15,11 +15,11 @@ class ContenedorTickets(grok.Container):
             self.contadores[codigo_seccion] = 1
         self._p_changed = True
 
-    def agregar_ticket(self, seccion, codigo_seccion):
-        self.incrementar_contador(codigo_seccion)
-        t = Ticket(seccion, codigo_seccion, self.contadores[codigo_seccion])
-        self[t.codigo()] = t
-        return t.codigo()
+    def agregar_ticket(self, seccion):
+        self.incrementar_contador(seccion.codigo)
+        ticket = Ticket(seccion, self[seccion.codigo])
+        self[ticket.codigo()] = ticket
+        return ticket.codigo()
 
 
 class ContenedorTicketsIndex(grok.View):
@@ -29,11 +29,11 @@ class ContenedorTicketsIndex(grok.View):
 
 
 class Ticket(grok.Model):
-    def __init__(self, seccion, codigo_seccion, numero):
+    def __init__(self, seccion, numero):
         super(Ticket, self).__init__()
         self.seccion = seccion
         self.hora_emision = datetime.now().strftime('%Y-%m-%d %H:%M')
-        self.codigo_seccion = codigo_seccion
+        self.codigo_seccion = seccion.codigo
         self.numero = numero
         self.atendido = False
         pass
