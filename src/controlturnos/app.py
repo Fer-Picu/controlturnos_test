@@ -1,24 +1,27 @@
 import grok
 
 from controlturnos import resource
+from controlturnos.usuarios import Usuarios
 
 # imports de modelos
 
 from zope.pluggableauth import PluggableAuthentication
 from zope.pluggableauth.interfaces import IAuthenticatorPlugin
 from zope.authentication.interfaces import IAuthentication
+from auth import instalar_autentificacion, PluginAuthenticacion
 
 
 class Controlturnos(grok.Application, grok.Container):
-#    grok.local_utility(PluggableAuthentication,
-#                       provides=IAuthentication,
-#                       setup=setup_authentication)
-#    grok.local_utility(UserAuthenticatorPlugin,
-#                       provides=IAuthenticatorPlugin,
-#                       name='usuarios_plugin')
+    grok.local_utility(PluggableAuthentication,
+                       provides=IAuthentication,
+                       setup=instalar_autentificacion)
+    grok.local_utility(PluginAuthenticacion,
+                       provides=IAuthenticatorPlugin,
+                       name='autenticacion')
 
     def __init__(self):
         super(Controlturnos, self).__init__()
+        self['usuarios'] = Usuarios
 
 
 class Index(grok.View):
