@@ -1,1 +1,3 @@
-<h1 tal:content="view.context.titulo"> Titlulo </h1>
+<h1 tal:content="view.context.titulo"> 
+	Titlulo 
+</h1>

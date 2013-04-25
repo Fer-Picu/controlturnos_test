@@ -1,7 +1,12 @@
 import grok
-
+from js.bootstrap import bootstrap
 from controlturnos import resource
+
 from controlturnos.interfaces import IContenido
+
+import secciones
+import usuarios
+import tickets
 
 
 class Controlturnos(grok.Application, grok.Container):
@@ -15,6 +20,7 @@ class Index(grok.View):
     grok.template("template")
 
     def update(self):
+        bootstrap.need()
         resource.style.need()
 
 

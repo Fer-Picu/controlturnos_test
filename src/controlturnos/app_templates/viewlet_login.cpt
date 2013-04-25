@@ -1,1 +1,5 @@
-<a class="text-right" tal:attributes="href view.url('login')">Login</a>
+<p class="text-right">
+	<a tal:attributes="href view.url('login')">
+		Login
+	</a>
+</p>

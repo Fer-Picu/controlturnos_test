@@ -1,41 +1,47 @@
 <html>
 	<head>
-      		
-      	<tal:slothead content="structure provider:slothead" />
-      		
+<!-- -- HEAD SLOT -- ------------------------------------------------------------------------- -->
+<tal:slothead content="structure provider:slothead" />
+<!-- ----------------------------------------------------------------------------------------- -->
   	</head>
   	<body>
-  		<div class="app-cabecera">
+  		<div class="well well-small">
+	  		<div id="cabecera">
+	  			
+	  			<div class="row-fluid">
+					<div class="span12 offset1">
+						<div id="slot-cabecera">
+<!-- -- CABECERA -- -------------------------------------------------------------------------- -->
+<tal:slotcabecera content="structure provider:slotcabecera" />
+<!-- ----------------------------------------------------------------------------------------- -->
+		  				</div>
+		  			</div>			
+			  	</div>  			
+	  		</div>
+			<div id="barra">
+	  			
+	  			<div class="row-fluid">
+					<div class="span10 offset1">
+						<div id="slot-barra">
+<!-- -- BARRA -- ----------------------------------------------------------------------------- -->
+<tal:slotbarra content="structure provider:slotbarra" />
+<!-- ----------------------------------------------------------------------------------------- -->
+		  				</div>
+		  			</div>			
+		  			<div class="span1">
+		  			</div>
+			  	</div>  			
+	  		</div>
+	  	</div>
+  		<div id="contenido">
   			
-  			<div class="row">
+  			<div class="row-fluid">
 				<div class="span10 offset1">
-					
-					<tal:slotcabecera content="structure provider:slotcabecera" />
-	  				
-	  			</div>			
-	  			<div class="span1">
-	  			</div>
-		  	</div>  			
-  		</div>
-		<div class="app-barra">
-  			
-  			<div class="row">
-				<div class="span10 offset1">
-					
-					<tal:slotbarra content="structure provider:slotbarra" />
-	  				
-	  			</div>			
-	  			<div class="span1">
-	  			</div>
-		  	</div>  			
-  		</div>
-  		<div class="app-contenido">
-  			
-  			<div class="row">
-				<div class="span10 offset1">
-					
-					<tal:slotcontenido content="structure provider:slotcontenido" />
-	  				
+					<div id="slot-contenido">
+<!-- -- CONTENIDO -- ------------------------------------------------------------------------- -->
+<tal:slotcontenido content="structure provider:slotcontenido" />
+<!-- ----------------------------------------------------------------------------------------- -->
+	  				</div>
 	  			</div>			
 	  			<div class="span1">
 	  			</div>
