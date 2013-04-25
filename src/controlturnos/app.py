@@ -2,9 +2,46 @@ import grok
 
 from controlturnos import resource
 
+# imports de modelos
+
+from zope.pluggableauth import PluggableAuthentication
+from zope.pluggableauth.interfaces import IAuthenticatorPlugin
+from zope.authentication.interfaces import IAuthentication
+
+
 class Controlturnos(grok.Application, grok.Container):
-    pass
+#    grok.local_utility(PluggableAuthentication,
+#                       provides=IAuthentication,
+#                       setup=setup_authentication)
+#    grok.local_utility(UserAuthenticatorPlugin,
+#                       provides=IAuthenticatorPlugin,
+#                       name='usuarios_plugin')
+
+    def __init__(self):
+        super(Controlturnos, self).__init__()
+
 
 class Index(grok.View):
-    def update(self):
-        resource.style.need()
+    grok.require('zope.Public')
+
+
+class PermisosEmpleado(grok.Permission):
+    """Permisos para empleado"""
+    grok.name('ct.empleado')
+
+
+class RolEmpleado(grok.Role):
+    """Rol de empleado"""
+    grok.name('ct.empleadorol')
+    grok.permissions('ct.empleado')
+
+
+class PermisosAdmin(grok.Permission):
+    """Permisos para administrador"""
+    grok.name('ct.admin')
+
+
+class RolAdmin(grok.Role):
+    """Rol de administrador"""
+    grok.name('ct.adminrol')
+    grok.permissions('ct.admin')
