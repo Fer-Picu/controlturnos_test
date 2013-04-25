@@ -2,7 +2,7 @@ import grok
 
 from controlturnos import resource
 from controlturnos.usuarios import Usuarios
-
+from controlturnos.seccion import ContenedorSecciones
 
 # imports de modelos
 
@@ -23,6 +23,8 @@ class Controlturnos(grok.Application, grok.Container):
     def __init__(self):
         super(Controlturnos, self).__init__()
         self['usuarios'] = Usuarios()
+        self["seccion"] = ContenedorSecciones()
+        
 
 
 class Index(grok.View):
