@@ -12,11 +12,21 @@
 				<th>Login</th>
 				<th>Nombre real</th>
 				<th>Role</th>
+				<th>Seccion</th>
+				<th>Editar</th>
+				<th>Borrar</th>
 			</tr>
 			<tr tal:repeat="user view.usuarios">
-				<td tal:content="user.nombre"></td>
+				<td tal:content="user.usuario"></td>
 				<td tal:content="user.nombre_real"></td>
 				<td tal:content="user.rol"></td>
+				<td tal:content="user.seccion"></td>
+				<td>
+					<a tal:attributes="href string:editar?usuario=${user.usuario}">Editar</a>
+				</td>
+				<td>
+					<a tal:attributes="href string:borrar?usuario=${user.usuario}">Borrar</a>
+				</td>
 			</tr>
 		</table>
 	</div>

@@ -14,6 +14,7 @@ from zope.pluggableauth.interfaces import IAuthenticatorPlugin
 from zope.pluggableauth.interfaces import IPrincipalInfo
 
 from zope.interface import Interface
+from zope.interface import Invalid
 
 from zope.authentication.interfaces import ILogout
 from zope.authentication.interfaces import IUnauthenticatedPrincipal
@@ -22,6 +23,8 @@ from zope.securitypolicy.interfaces import IPrincipalRoleManager
 
 from zope import component
 from zope import schema
+
+from zope.i18nmessageid.message import MessageFactory as _
 
 from controlturnos.usuarios import Cuenta
 
@@ -61,22 +64,33 @@ class Login(grok.Form):
 
     @grok.action('login')
     def handle_login(self, **data):
-        camefrom = self.request.form.get('camefrom')
-        if camefrom:
-            self.redirect(camefrom)
-            return
-        self.redirect(self.application_url())
+        authenticated = not IUnauthenticatedPrincipal.providedBy(
+            self.request.principal,
+        )
+        if authenticated:
+            camefrom = self.request.form.get('camefrom')
+            if camefrom:
+                self.redirect(camefrom, self.url(grok.getSite()))
+            else:
+                self.redirect(self.url(grok.getSite()))
+            self.flash(u'Logueado!', type=u'message')
+        else:
+            self.status = u'Autenticación fallida'
+            self.errors += (Invalid(u'Usuario y/o contraseña invalidos'),)
+            self.form_reset = False
 
 
 class Logout(grok.View):
     grok.context(Interface)
-    grok.template('logout')
-    grok.require('zope.Public')
+    grok.require('zope.View')
 
-    def update(self):
+    def render(self):
         if not IUnauthenticatedPrincipal.providedBy(self.request.principal):
             auth = component.getUtility(IAuthentication)
-        ILogout(auth).logout(self.request)
+            ILogout(auth).logout(self.request)
+
+        self.flash(_(u'Usted ha deslogueado'), type=u'message')
+        return self.redirect(self.application_url())
 
 
 class PluginAuthenticacion(grok.LocalUtility):
@@ -91,33 +105,30 @@ class PluginAuthenticacion(grok.LocalUtility):
             return None
         if not ('login' in credenciales and 'password' in credenciales):
             return None
-        cuenta = self.obtener_cuenta(credenciales['login'])
+        cuenta = self.obtenerCuenta(credenciales['login'])
         if cuenta is None:
             return None
-        if not cuenta.verificar_password(credenciales['password']):
+        if not cuenta.verificarPassword(credenciales['password']):
             return None
-        return PrincipalInfo(id=cuenta.nombre,
+        return PrincipalInfo(id=cuenta.usuario,
                              title=cuenta.nombre_real,
                              description=cuenta.nombre_real)
 
     def principalInfo(self, id):
-        cuenta = self.obtener_cuenta(id)
+        cuenta = self.obtenerCuenta(id)
         if cuenta is None:
             return None
-        return PrincipalInfo(id=cuenta.nombre,
+        return PrincipalInfo(id=cuenta.usuario,
                              title=cuenta.nombre_real,
-                             description=cuenta.description)
+                             description=cuenta.nombre_real)
 
-    def obtener_cuenta(self, usuario):
+    def obtenerCuenta(self, usuario):
         """Devuelve la cuenta del contenedor_cuentas[usuario]"""
         return usuario in self.contenedor_cuentas\
                         and self.contenedor_cuentas[usuario] or None
 
-    def agregar_usuario(self, usuario, password,
+    def agregarUsuario(self, usuario, password,
                         confirm_password, nombre_real, rol, seccion):
-        error = self.verificar_campos(usuario, password, confirm_password)
-        if error:
-            return error
         if usuario not in self.contenedor_cuentas:
             user = Cuenta(usuario, password, nombre_real, rol, seccion)
             self.contenedor_cuentas[usuario] = user
@@ -128,20 +139,17 @@ class PluginAuthenticacion(grok.LocalUtility):
             if rol == u'administrador':
                 role_manager.assignRoleToPrincipal('ct.adminrol',
                                                    usuario)
-
-    def verificar_campos(self, nombre, password, confirm_password):
-        if not nombre.isalnum():
-            return "usuario solamente puede contener numeros y letras"
-        elif not password.isalnum():
-            return "password solamente puede contener numeros y letras"
-        elif not password == confirm_password:
-            return "las passwords no coinciden"
-        elif len(nombre) > 20:
-            return "usuario muy largo"
         else:
-            return None
+            return u"El nombre de usuario ya existe"
 
-    def listar_usuarios(self):
+    def borrarUsuario(self, usuario):
+        if usuario in self.contenedor_cuentas:
+            role_manager = IPrincipalRoleManager(grok.getSite())
+            rol = role_manager.getRolesForPrincipal(usuario)[0]
+            role_manager.removeRoleFromPrincipal(rol[0], usuario)
+            del self.contenedor_cuentas[usuario]
+
+    def listarUsuarios(self):
         """Devuelve lista de cuentas creadas"""
         return [usuario for usuario in self.contenedor_cuentas.values()]
 
