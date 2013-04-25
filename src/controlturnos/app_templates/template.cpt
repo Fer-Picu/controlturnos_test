@@ -1,0 +1,45 @@
+<html>
+	<head>
+      		
+      	<tal:slothead content="structure provider:slothead" />
+      		
+  	</head>
+  	<body>
+  		<div class="app-cabecera">
+  			
+  			<div class="row">
+				<div class="span10 offset1">
+					
+					<tal:slotcabecera content="structure provider:slotcabecera" />
+	  				
+	  			</div>			
+	  			<div class="span1">
+	  			</div>
+		  	</div>  			
+  		</div>
+		<div class="app-barra">
+  			
+  			<div class="row">
+				<div class="span10 offset1">
+					
+					<tal:slotbarra content="structure provider:slotbarra" />
+	  				
+	  			</div>			
+	  			<div class="span1">
+	  			</div>
+		  	</div>  			
+  		</div>
+  		<div class="app-contenido">
+  			
+  			<div class="row">
+				<div class="span10 offset1">
+					
+					<tal:slotcontenido content="structure provider:slotcontenido" />
+	  				
+	  			</div>			
+	  			<div class="span1">
+	  			</div>
+		  	</div>  			
+  		</div>
+  	</body>
+</html>
