@@ -1,13 +1,9 @@
 <html>
 <body>
 <h1>BIENVENIDO</h1>
-<p tal:content="view.context.now" > 
-		hora_emision 
-	</p>
 <ul>
- <li tal:repeat="seccion view.context.lista">
+ <li tal:repeat="seccion view.context.lista_secciones">
  <p tal:content="seccion.nombre"></p>
- <p tal:content="seccion.descripcion"></p>
  <form tal:attributes="action view.url()" method="POST">
 	  	  <input type="hidden" name="seccion_codigo" tal:attributes="value seccion.codigo"></input>
 	  	  <input type="hidden" name="seccion_nombre" tal:attributes="value seccion.nombre"></input>
