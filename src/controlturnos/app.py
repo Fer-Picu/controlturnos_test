@@ -1,6 +1,7 @@
 import grok
 
 from controlturnos import resource
+from js.bootstrap import bootstrap
 
 # imports de modelos
 
@@ -42,7 +43,7 @@ class Index(grok.View):
     grok.require('zope.Public')
 
     def update(self):
-        resource.style.need()
+        bootstrap.need()
 
 
 class PermisosEmpleado(grok.Permission):
