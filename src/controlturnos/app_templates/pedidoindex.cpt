@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1>BIENVENIDO</h1>
+<ul>
+ <li tal:repeat="seccion view.context.lista_secciones">
+ <p tal:content="seccion.nombre"></p>
+ <form tal:attributes="action view.url()" method="POST">
+	  	  <input type="hidden" name="seccion_codigo" tal:attributes="value seccion.codigo"></input>
+	  	  <input type="hidden" name="seccion_nombre" tal:attributes="value seccion.nombre"></input>
+	      <input type="submit" value="PEDIR TURNO" />
+	  	</form>
+ </li>
+</ul>
+</body>
+</html>

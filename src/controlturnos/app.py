@@ -3,6 +3,8 @@ from js.bootstrap import bootstrap
 from controlturnos import resource
 from controlturnos.usuarios import Usuarios
 from controlturnos.seccion import ContenedorSecciones
+from controlturnos.ticket import ContenedorTickets
+#from controlturnos.pedido import 
 
 # imports de modelos
 
@@ -30,6 +32,7 @@ class Controlturnos(grok.Application, grok.Container):
         self.titulo = "Control de Turnos"
         self["seccion"] = ContenedorSecciones()
         self["empleado"] = Empleado()
+        self["ticket"] = ContenedorTickets()
 
     def app(self):
         return self

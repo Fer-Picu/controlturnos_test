@@ -1,0 +1,29 @@
+<html>
+	<h1>
+		Retire su Ticket:
+	</h1>
+	
+		<p> Codigo: </p>
+		<p tal:content="view.context.codigo()" > 
+			codigo 
+		</p>
+	
+
+		<p> Seccion: </p>
+		<p tal:content="view.context.seccion" > 
+			seccion
+		</p>
+
+	
+		<p> Hora de emision: </p>
+		<p tal:content="view.context.hora_emision" > 
+			hora_emision 
+		</p>
+	
+	<div>
+		<script type="text/JavaScript">
+			setTimeout("location.href = '${view.url(view.context.__parent__.__parent__["pedido"],"index")}';",5000);
+		</script>
+		
+	</div>
+</html>
