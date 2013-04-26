@@ -53,30 +53,30 @@ class ContenedorSecciones(grok.Container):
         super(ContenedorSecciones, self).__init__()
         self.titulo = "Secciones"
 
-    def obtenerTitulo(self):
-        return self.__parent__.obtenerTitulo()
+    def obtener_titulo(self):
+        return self.__parent__.obtener_titulo()
 
-    def obtenerListaSecciones(self):
+    def obtener_lista_secciones(self):
         """Devuelve lista de objetos Seccion creados"""
         return [value for key, value in self.items()]
 
-    def agregarSeccion(self, seccion):
+    def agregar_seccion(self, seccion):
         """Agrega una seccion"""
         self[seccion.codigo] = seccion
 
-    def contieneSeccion(self, nombre):
+    def contiene_seccion(self, nombre):
         """Devuelve true si existe un nombre igual al ingresado"""
         if nombre in [seccion.nombre for seccion in self.values()]:
             return True
         return None
 
-    def contieneCodigo(self, codigo):
+    def contiene_codigo(self, codigo):
         """Devuelve true si existe un codigo igual al ingresado"""
         if codigo in [seccion.codigo for seccion in self.values()]:
             return True
         return False
     
-    def borrarSeccion(self, seccion):
+    def borrar_seccion(self, seccion):
         """Borrar seccion seleccionada"""
         self.__delitem__(seccion)
 
@@ -92,7 +92,7 @@ class ContenedorSeccionesIndex(grok.View):
         resource.style.need()
         if not seccion:
             return
-        self.context.borrarSeccion(seccion)
+        self.context.borrar_seccion(seccion)
 
 
 class ContenedorSeccionesIndexContenido(grok.Viewlet):
@@ -119,11 +119,11 @@ class AddSeccion(grok.AddForm):
             return
         # No agrega la seccion si se repite el nombre de la seccion
         # o el codigo
-        if self.context.contieneSeccion(data['nombre']) == True\
-            or self.context.contieneCodigo(data['codigo']) == True:
+        if self.context.contiene_seccion(data['nombre']) == True\
+            or self.context.contiene_codigo(data['codigo']) == True:
             pass
         else:
-            self.context.agregarSeccion(Seccion(data['nombre'],
+            self.context.agregar_seccion(Seccion(data['nombre'],
                                                  data['descripcion'],
                                                  data['codigo']))
 
