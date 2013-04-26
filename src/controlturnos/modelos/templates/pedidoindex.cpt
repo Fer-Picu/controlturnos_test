@@ -1,9 +1,6 @@
 <html>
 <body>
 <h1>BIENVENIDO</h1>
-<p tal:content="view.context.now" > 
-		hora_emision 
-	</p>
 <ul>
  <li tal:repeat="seccion view.context.lista_secciones">
  <p tal:content="seccion.nombre"></p>

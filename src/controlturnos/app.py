@@ -29,6 +29,7 @@ class Controlturnos(grok.Application, grok.Container):
                        name='usuarios_plugin')
 
     def __init__(self):
+        print grok.templatedir.__doc__
         super(Controlturnos, self).__init__()
         self["admin"] = Admin()
         self["empleado"] = Empleado()
