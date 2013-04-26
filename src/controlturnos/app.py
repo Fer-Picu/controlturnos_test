@@ -1,6 +1,7 @@
 import grok
 
 from controlturnos import resource
+from js.bootstrap import bootstrap
 
 # imports de modelos
 
@@ -28,6 +29,7 @@ class Controlturnos(grok.Application, grok.Container):
                        name='usuarios_plugin')
 
     def __init__(self):
+        print grok.templatedir.__doc__
         super(Controlturnos, self).__init__()
         self["admin"] = Admin()
         self["empleado"] = Empleado()
@@ -42,7 +44,7 @@ class Index(grok.View):
     grok.require('zope.Public')
 
     def update(self):
-        resource.style.need()
+        bootstrap.need()
 
 
 class PermisosEmpleado(grok.Permission):
