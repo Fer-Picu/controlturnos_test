@@ -52,3 +52,10 @@ class ViewletLogin(grok.Viewlet):
     grok.context(Interface)
     grok.template("viewlet_login")
     grok.order(2)
+
+
+class ViewletLogout(grok.Viewlet):
+    grok.viewletmanager(IBarra)
+    grok.context(Interface)
+    grok.template("viewlet_logout")
+    grok.order(3)

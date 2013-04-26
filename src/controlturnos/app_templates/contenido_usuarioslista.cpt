@@ -3,11 +3,11 @@
 	<title>Lista de usuarios</title>
 </head>
 <body>
-	<h1>Lista de usuarios</h1>
-	<p><a href="agregar">Agregar nuevo usuario</a></p>
+	<legend><strong>Lista de usuarios</strong></legend>
+	<p class="text-right"><a class="btn btn-primary" href="agregar">Agregar nuevo usuario</a></p>
 	<div tal:condition="view.usuarios">
-		<h2 >Estos son los usuarios existentes</h2>
-		<table>
+		<strong>Estos son los usuarios existentes</strong>
+		<table class="table">
 			<tr>
 				<th>Login</th>
 				<th>Nombre real</th>

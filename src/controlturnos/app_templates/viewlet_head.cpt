@@ -1,1 +1,3 @@
-<title tal:content="view.context.obtener_titulo()"> Titlulo </title>
+<title tal:content="'Control de turnos'"> 
+	Titlulo 
+</title>
