@@ -38,3 +38,5 @@ nosetests.xml
 .project
 .pydevproject
 .settings/org.eclipse.ltk.core.refactoring.prefs
+.settings/org.eclipse.core.refactoring.prefs
+.settings/*
