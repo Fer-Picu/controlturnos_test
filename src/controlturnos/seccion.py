@@ -43,8 +43,8 @@ class Seccion(grok.Model):
         self.descripcion = descripcion
         self.codigo = codigo
 
-    def obtener_titulo(self):
-        return self.__parent__.obtener_titulo()
+    def obtenerTitulo(self):
+        return self.__parent__.obtenerTitulo()
 
 
 class ContenedorSecciones(grok.Container):
@@ -53,28 +53,32 @@ class ContenedorSecciones(grok.Container):
         super(ContenedorSecciones, self).__init__()
         self.titulo = "Secciones"
 
-    def obtener_titulo(self):
-        return self.__parent__.obtener_titulo()
+    def obtenerTitulo(self):
+        return self.__parent__.obtenerTitulo()
 
-    def obtener_lista_secciones(self):
+    def obtenerListaSecciones(self):
         """Devuelve lista de objetos Seccion creados"""
         return [value for key, value in self.items()]
 
-    def agregar_seccion(self, seccion):
+    def agregarSeccion(self, seccion):
         """Agrega una seccion"""
         self[seccion.codigo] = seccion
 
-    def contiene_seccion(self, nombre):
+    def contieneSeccion(self, nombre):
         """Devuelve true si existe un nombre igual al ingresado"""
         if nombre in [seccion.nombre for seccion in self.values()]:
             return True
         return None
 
-    def contiene_codigo(self, codigo):
+    def contieneCodigo(self, codigo):
         """Devuelve true si existe un codigo igual al ingresado"""
         if codigo in [seccion.codigo for seccion in self.values()]:
             return True
         return False
+    
+    def borrarSeccion(self, seccion):
+        """Borrar seccion seleccionada"""
+        self.__delitem__(seccion)
 
 
 class ContenedorSeccionesIndex(grok.View):
@@ -88,7 +92,7 @@ class ContenedorSeccionesIndex(grok.View):
         resource.style.need()
         if not seccion:
             return
-        self.context.borrar_seccion(seccion)
+        self.context.borrarSeccion(seccion)
 
 
 class ContenedorSeccionesIndexContenido(grok.Viewlet):
@@ -115,16 +119,27 @@ class AddSeccion(grok.AddForm):
             return
         # No agrega la seccion si se repite el nombre de la seccion
         # o el codigo
-        if self.context.contiene_seccion(data['nombre']) == True\
-            or self.context.contiene_codigo(data['codigo']) == True:
+        if self.context.contieneSeccion(data['nombre']) == True\
+            or self.context.contieneCodigo(data['codigo']) == True:
             pass
         else:
-            self.context.agregar_seccion(Seccion(data['nombre'],
+            self.context.agregarSeccion(Seccion(data['nombre'],
                                                  data['descripcion'],
                                                  data['codigo']))
 
         self.redirect(self.url('index'))
+        
+class SeccionEdit(grok.EditForm):
+    grok.context(Seccion)
+    grok.require('ct.admin')
+    grok.name('index')
+    form_fields = grok.AutoFields(ISeccion)
+    label = 'Editar campos'
 
+    @grok.action('Guardar cambios')
+    def edit(self, **data):
+        self.applyData(self.context, **data)
+        self.redirect(self.url(self.context.__parent__))
 
 class AddSeccionView(grok.View):
     grok.context(ContenedorSecciones)

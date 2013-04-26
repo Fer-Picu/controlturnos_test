@@ -25,7 +25,8 @@ setup(name='controlturnos',
                         'zope.fanstatic',
                         'grokcore.chameleon',
                         'grokcore.startup',
-                        'zope.pluggableauth'
+                        'zope.pluggableauth',
+                        'js.bootstrap',
                         # Add extra requirements here
                         ],
       entry_points={

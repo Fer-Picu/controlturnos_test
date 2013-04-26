@@ -1,18 +1,37 @@
 <legend><strong>Secciones</strong></legend>
   <div class="row-fluid">
-  	<div class="span10">  
-		  <ul class="unstyled">
-		 	 <li class="well well-small" tal:repeat="seccion view.context.values()">
-			  	<legend tal:content="seccion.nombre + ' - ' + seccion.codigo"></legend>
-			  	
-			  		<p tal:content="seccion.descripcion"></p><i class="icon-search"></i>
-			  			  		
-			  	<form tal:attributes="action view.url()" method="POST">
-			  	  <input type="hidden" name="seccion" tal:attributes="value seccion.codigo"></input>
-			  	</form>
-			  </li>
-			  <br />
-		  </ul>
+	<div class="span10">
+		<table class="table table-striped">
+			<tr class="success">
+				<td><p class="text-left"><strong>Sección</strong></p></td>
+				<td><p class="text-left"><strong>Código</strong></p></td>
+				<td><p class="text-left"><strong>Lugar de atención</strong></p></td>
+				<td><p class="text-left"><strong>Eliminar</strong></p></td>
+				<td><p class="text-left"><strong>Editar</strong></p></td>
+			</tr>
+			<ol class="unstyled">
+				<tr tal:repeat="seccion view.context.values()">
+					<td><p class="text-left" tal:content="seccion.nombre"></p></td>
+					<td><p class="text-left" tal:content="seccion.codigo"></p></td>
+					<td><p class="text-left" tal:content="seccion.descripcion"></p></td>
+					<td>
+							<form tal:attributes="action view.url()" method="POST">
+								<p class="text-left">
+		  	  						<input class="btn btn-danger" type="submit" value="Eliminar" />
+		  	  						<input type="hidden" name="seccion" tal:attributes="value seccion.codigo"></input>
+		  	  					</p>
+		  					</form>
+	  				</td>
+	  				<td>
+						<form tal:attributes="href view.url(seccion)" method="POST">
+	  	  					<p class="text-left">
+	  	  						<a class="btn" tal:attributes="href view.url(seccion)">Editar</a>
+	  	  					</p>
+	  					</form>
+	  				</td>
+				</tr>
+			</ol>
+		</table>
 	</div>
 	<div class="text-right">
 		<a class="btn btn-primary" tal:attributes="href view.url('agregar')">Nueva Sección</a>
