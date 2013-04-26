@@ -1,0 +1,11 @@
+<a tal:attributes="href './seccion'">
+	Secciones
+</a>
+<br/>
+<a tal:attributes="href './empleado'">
+	Empleado
+</a>
+<br/>
+<a tal:attributes="href './usuarios'">
+	Usuarios
+</a>

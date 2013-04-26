@@ -1,0 +1,9 @@
+<div tal:condition="request.principal.id != 'zope.anybody'">
+	<p class="text-right">
+		<div tal:replace="request.principal.id"></div>
+		<a class="btn btn-primary" tal:attributes="href view.url('logout')">
+			Logout
+		</a>
+	</p>
+</div>
+

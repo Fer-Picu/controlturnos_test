@@ -24,6 +24,10 @@ from zope.securitypolicy.interfaces import IPrincipalRoleManager
 from zope import component
 from zope import schema
 
+from interfaces import IContenido
+from js.bootstrap import bootstrap
+import resource
+
 from zope.i18nmessageid.message import MessageFactory as _
 
 from controlturnos.usuarios import Cuenta
@@ -51,15 +55,27 @@ class ILoginFormulario(Interface):
     password = schema.Password(title=u'Contraseña', required=True)
 
 
-class Login(grok.Form):
+class Login(grok.View):
     grok.context(Interface)
+    grok.name('login')
     grok.require('zope.Public')
+    grok.template('template')
+
+    def update(self):
+        bootstrap.need()
+        resource.style.need()
+        self.site = grok.getApplication()
+
+
+class LoginForm(grok.Form):
+    grok.context(Interface)
+    grok.name("login-form")
     label = "Login"
     prefix = ''
     form_fields = grok.Fields(ILoginFormulario)
 
     def setUpWidgets(self, ignore_request=False):
-        super(Login, self).setUpWidgets(ignore_request)
+        super(LoginForm, self).setUpWidgets(ignore_request)
         self.widgets['camefrom'].type = 'hidden'
 
     @grok.action('login')
@@ -80,9 +96,26 @@ class Login(grok.Form):
             self.form_reset = False
 
 
+class LoginContenido(grok.Viewlet):
+    grok.viewletmanager(IContenido)
+    grok.context(Interface)
+    grok.view(Login)
+
+    def update(self):
+        self.form = component.getMultiAdapter((self.context, self.request), name='login-form')
+        self.form.update_form()
+        if self.request.method == 'POST':
+#             app = self.context.__parent__
+#             self.__parent__.redirect(self.__parent__.url(obj=app))
+            self.view.url(name='index')
+
+    def render(self):
+        return self.form.render()
+
+
 class Logout(grok.View):
     grok.context(Interface)
-    grok.require('zope.View')
+    grok.require('zope.Public')
 
     def render(self):
         if not IUnauthenticatedPrincipal.providedBy(self.request.principal):

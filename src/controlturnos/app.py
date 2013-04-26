@@ -13,6 +13,7 @@ from auth import instalar_autentificacion, PluginAuthenticacion
 
 
 from controlturnos.interfaces import IContenido
+from controlturnos.empleado import Empleado
 
 
 class Controlturnos(grok.Application, grok.Container):
@@ -28,9 +29,10 @@ class Controlturnos(grok.Application, grok.Container):
         self['usuarios'] = Usuarios()
         self.titulo = "Control de Turnos"
         self["seccion"] = ContenedorSecciones()
+        self["empleado"] = Empleado()
 
-    def obtener_titulo(self):
-        return self.titulo
+    def app(self):
+        return self
 
 
 class Index(grok.View):
@@ -58,7 +60,7 @@ class PermisosEmpleado(grok.Permission):
 class RolEmpleado(grok.Role):
     """Rol de empleado"""
     grok.name('ct.empleadorol')
-    grok.permissions('ct.empleado')
+    grok.permissions('ct.empleado', 'ct.logueado')
 
 
 class PermisosAdmin(grok.Permission):
@@ -69,4 +71,8 @@ class PermisosAdmin(grok.Permission):
 class RolAdmin(grok.Role):
     """Rol de administrador"""
     grok.name('ct.adminrol')
-    grok.permissions('ct.admin')
+    grok.permissions('ct.admin', 'ct.logueado')
+
+
+class PermisosLogueado(grok.Permission):
+    grok.name('ct.logueado')

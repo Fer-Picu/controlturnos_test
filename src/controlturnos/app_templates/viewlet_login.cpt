@@ -1,5 +1,7 @@
-<p class="text-right">
-	<a tal:attributes="href view.url('login')">
-		Login
-	</a>
-</p>
+<div tal:condition="request.principal.id  == 'zope.anybody'">
+	<p class="text-right">
+		<a class="btn btn-primary" tal:attributes="href view.url('login')">
+			Login
+		</a>
+	</p>
+</div>

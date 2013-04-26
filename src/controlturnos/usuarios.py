@@ -15,6 +15,10 @@ from zope import schema
 from zope.password.interfaces import IPasswordManager
 from zope.i18nmessageid.message import MessageFactory as _
 
+from js.bootstrap import bootstrap
+import resource
+from interfaces import IContenido
+
 grok.templatedir("app_templates")
 
 
@@ -23,17 +27,30 @@ class Usuarios(grok.Container):
     def __init__(self):
         super(Usuarios, self).__init__()
 
+    def app(self):
+        return self.__parent__.app()
+
 
 class UsuariosIndex(grok.View):
     grok.context(Usuarios)
     grok.require('ct.admin')
-    grok.template('usuarioslista')
+    grok.template('template')
     grok.name('index')
 
     def update(self):
         plugin_auth = component.getUtility(IAuthenticatorPlugin,
                                            'autenticacion')
+        bootstrap.need()
+        resource.style.need()
         self.usuarios = plugin_auth.listarUsuarios()
+
+
+class UsuariosIndexContenido(grok.Viewlet):
+    grok.viewletmanager(IContenido)
+    grok.context(Usuarios)
+    grok.view(UsuariosIndex)
+    grok.template("contenido_usuarioslista")
+    grok.order(0)
 
 
 class IAgregarUsuario(Interface):
@@ -95,6 +112,9 @@ class Cuenta(grok.Model):
         self.seccion = seccion
         self.asignarPassword(password)
 
+    def app(self):
+        return self.__parent__.app()
+
     def asignarPassword(self, password):
         passwordmanager = component.getUtility(IPasswordManager,
                                                'SHA1')
@@ -107,10 +127,20 @@ class Cuenta(grok.Model):
                                              password)
 
 
+class AgregarUsuarioView(grok.View):
+    grok.context(Usuarios)
+    grok.name('agregar')
+    grok.require('ct.admin')
+    grok.template('template')
+
+    def update(self):
+        bootstrap.need()
+        resource.style.need()
+
+
 class AgregarUsuario(grok.Form):
     grok.context(Usuarios)
     grok.require('ct.admin')
-    grok.name('agregar')
     label = "Agregar usuario"
     form_fields = grok.Fields(IAgregarUsuario)
     template = grok.PageTemplateFile('app_templates/usuarioform.cpt')
@@ -133,10 +163,35 @@ class AgregarUsuario(grok.Form):
         self.redirect(self.url(self.context))
 
 
+class AgregarUsuarioContenido(grok.Viewlet):
+    grok.viewletmanager(IContenido)
+    grok.context(Usuarios)
+    grok.view(AgregarUsuarioView)
+
+    def update(self):
+        self.form = component.getMultiAdapter((self.context, self.request), name='agregarusuario')
+        self.form.update_form()
+        if self.request.method == 'POST':
+            self.view.url('index')
+
+    def render(self):
+        return self.form.render()
+
+
+class EditarUsuarioView(grok.View):
+    grok.context(Usuarios)
+    grok.name('editar')
+    grok.require('ct.admin')
+    grok.template('template')
+
+    def update(self):
+        bootstrap.need()
+        resource.style.need()
+
+
 class EditarUsuario(grok.Form):
     grok.context(Usuarios)
     grok.require('ct.admin')
-    grok.name('editar')
     form_fields = grok.Fields(IEditarUsuario)
     template = grok.PageTemplateFile('app_templates/usuarioform.cpt')
     label = "Editar usuario"
@@ -170,6 +225,21 @@ class EditarUsuario(grok.Form):
         self.redirect(self.url(self.context))
 
 
+class EditarUsuarioContenido(grok.Viewlet):
+    grok.viewletmanager(IContenido)
+    grok.context(Usuarios)
+    grok.view(EditarUsuarioView)
+
+    def update(self):
+        self.form = component.getMultiAdapter((self.context, self.request), name='editarusuario')
+        self.form.update_form()
+        if self.request.method == 'POST':
+            self.view.url('index')
+
+    def render(self):
+        return self.form.render()
+
+
 class BorrarUsuario(grok.View):
     """Borra al usuario y vuelve a la lista de usuarios"""
 
@@ -187,4 +257,3 @@ class BorrarUsuario(grok.View):
             self.flash(_(u'User not found.'), type=u'error')
 
         self.redirect(self.url(self.context))
-

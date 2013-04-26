@@ -4,9 +4,8 @@ from js.bootstrap import bootstrap
 from controlturnos import resource
 from zope.interface import Interface
 from zope import schema
-from zope.component import getMultiAdapter
 from interfaces import IContenido
-
+from zope import component
 import grok
 
 grok.templatedir('app_templates')
@@ -43,8 +42,8 @@ class Seccion(grok.Model):
         self.descripcion = descripcion
         self.codigo = codigo
 
-    def obtener_titulo(self):
-        return self.__parent__.obtener_titulo()
+    def app(self):
+        return self.__parent__.app()
 
 
 class ContenedorSecciones(grok.Container):
@@ -53,8 +52,8 @@ class ContenedorSecciones(grok.Container):
         super(ContenedorSecciones, self).__init__()
         self.titulo = "Secciones"
 
-    def obtener_titulo(self):
-        return self.__parent__.obtener_titulo()
+    def app(self):
+        return self.__parent__.app()
 
     def obtener_lista_secciones(self):
         """Devuelve lista de objetos Seccion creados"""
@@ -143,7 +142,7 @@ class AddSeccionContenido(grok.Viewlet):
     grok.view(AddSeccionView)
 
     def update(self):
-        self.form = getMultiAdapter((self.context, self.request), name='addseccion')
+        self.form = component.getMultiAdapter((self.context, self.request), name='addseccion')
         self.form.update_form()
         if self.request.method == 'POST':
 #             app = self.context.__parent__
